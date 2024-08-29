@@ -1,0 +1,51 @@
+{
+  "name": "Flashback",
+  "version": "1.0",
+  "description": "Automate your Regression Testing!",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "tabs",
+    "background",
+    "*://*/*",
+    "contextMenus",
+    "nativeMessaging"
+  ],
+  "manifest_version": 2,
+  "background": {
+    "scripts": [
+      "src/background/BackgroundEventListener.js",
+      "src/contentscripts/socket.io.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "run_at": "document_end",
+      "all_frames": false,
+      "js": [
+        "src/contentscripts/constant.js",
+        "src/contentscripts/EventMediator.js",
+        "src/injection/RecordedTestCase.js",
+        "src/injection/PlayTestCaseButtonListener.js"
+      ],
+      "persistent": false,
+      "exclude_globs": [
+        "*popup.html*"
+      ]
+    }
+  ],
+  "browser_action": {
+    "default_title": "Record and play.",
+    "default_icon": "src/icons/icon.png",
+    "default_popup": "src/popup/popup.html"
+  },
+  "icons": {
+    "16": "src/icons/icon.png",
+    "32": "src/icons/icon.png",
+    "48": "src/icons/icon.png",
+    "128": "src/icons/icon.png"
+  }
+}
